@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { Play, Pause, Volume2, Clock, Quote } from "lucide-react";
 
 // Import your audio files
-import rainSound from '../assets/sounds/rain.mp3'; // Adjust paths as needed
-import coffeeSound from '../assets/sounds/coffee.mp3';
-import forestSound from '../assets/sounds/forest.mp3';
-import wavesSound from '../assets/sounds/waves.mp3';
-import fireplaceSound from '../assets/sounds/fireplace.mp3';
-import lofiSound from '../assets/sounds/lofi.mp3';
+import rainSound from "../assets/sounds/rain.mp3"; // Adjust paths as needed
+import coffeeSound from "../assets/sounds/coffee.mp3";
+import forestSound from "../assets/sounds/forest.mp3";
+import wavesSound from "../assets/sounds/waves.mp3";
+import fireplaceSound from "../assets/sounds/fireplace.mp3";
+import lofiSound from "../assets/sounds/lofi.mp3";
 
 const LofiApp = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -31,41 +31,41 @@ const LofiApp = () => {
 
   // Sound options with actual audio URLs
   const sounds = {
-    rain: { 
-      name: "Rain", 
-      color: "from-blue-600 to-blue-800", 
-      icon: "🌧️", 
-      src: rainSound 
+    rain: {
+      name: "Rain",
+      color: "from-blue-600 to-blue-800",
+      icon: "🌧️",
+      src: rainSound,
     },
     coffee: {
       name: "Coffee Shop",
       color: "from-amber-600 to-amber-800",
       icon: "☕",
-      src: coffeeSound
+      src: coffeeSound,
     },
     forest: {
       name: "Forest",
       color: "from-green-600 to-green-800",
       icon: "🌲",
-      src: forestSound
+      src: forestSound,
     },
     waves: {
       name: "Ocean Waves",
       color: "from-cyan-600 to-cyan-800",
       icon: "🌊",
-      src: wavesSound
+      src: wavesSound,
     },
     fireplace: {
       name: "Fireplace",
       color: "from-orange-600 to-orange-800",
       icon: "🔥",
-      src: fireplaceSound
+      src: fireplaceSound,
     },
     lofi: {
       name: "Lofi Beats",
       color: "from-purple-600 to-purple-800",
       icon: "🎵",
-      src: lofiSound
+      src: lofiSound,
     },
   };
 
@@ -102,23 +102,25 @@ const LofiApp = () => {
   // Handle sound change
   const handleSoundChange = (soundKey) => {
     const wasPlaying = isPlaying;
-    
+
     // If currently playing, pause before changing
     if (isPlaying && audioRef.current) {
       audioRef.current.pause();
     }
-    
+
     setCurrentSound(soundKey);
-    
+
     // Set up new audio source
     if (audioRef.current) {
       audioRef.current.src = sounds[soundKey].src;
       audioRef.current.loop = true;
       audioRef.current.volume = volume;
-      
+
       // Resume playing if it was playing before
       if (wasPlaying) {
-        audioRef.current.play().catch(e => console.error("Audio play error:", e));
+        audioRef.current
+          .play()
+          .catch((e) => console.error("Audio play error:", e));
       }
     }
   };
@@ -135,7 +137,7 @@ const LofiApp = () => {
     audioRef.current = new Audio(sounds[currentSound].src);
     audioRef.current.loop = true;
     audioRef.current.volume = volume;
-    
+
     return () => {
       // Clean up audio when component unmounts
       if (audioRef.current) {
@@ -184,10 +186,6 @@ const LofiApp = () => {
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center p-8">
         {/* Digital Clock */}
         <div className="text-center mb-12">
-          <div className="flex items-center justify-center mb-4">
-            <Clock className="text-white/80 mr-3" size={32} />
-            <h1 className="text-white text-2xl font-light">Focus Time</h1>
-          </div>
           <div className="bg-black/20 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
             <div className="text-6xl md:text-8xl font-mono text-white font-light tracking-wider mb-2">
               {formatTime(currentTime)}
@@ -296,7 +294,7 @@ const LofiApp = () => {
 
       {/* Audio element (hidden) */}
       <audio ref={audioRef} src={sounds[currentSound].src} />
-      
+
       <style jsx>{`
         .slider::-webkit-slider-thumb {
           appearance: none;
